@@ -3,7 +3,7 @@ import styles from  './App.module.css'
 
 import './global.css'
 import { Sidebar } from './components/Sidebar'
-import { Post } from './components/Pots'
+import { Post } from './components/Post'
 
 const posts = [ 
   {
@@ -50,6 +50,7 @@ const posts = [
             posts.map(post => {
               return (
                 <Post
+                  key={post.id}
                   author={post.author}
                   publishedAt={post.publishedAt}
                   content={post.content}
