@@ -1,0 +1,80 @@
+.commentContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.commentContainer + .commentContainer {
+  margin-top: 1.5rem;
+}
+
+.comment {
+  width: 100%;
+}
+
+.commentContent {
+  background-color: var(--gray-700);
+  border-radius: 9px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.commentContent > header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.commentUser {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+.commentUser strong {
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: var(--gray-100);
+}
+
+.commentUser time {
+  font-size: 0.75rem;
+  color: var(--gray-400);
+}
+
+.commentDeleteButton {
+  background-color: transparent;
+  border: none;
+  color: var(--gray-400);
+  outline: none;
+}
+
+.commentDeleteButton:hover {
+  color: var(--red-500);
+}
+
+.commentText {
+  padding-top: 1rem;
+}
+
+.commentReaction {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--gray-400);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.commentReaction>span::before {
+  content: '•';
+  padding-right: 0.5rem;
+}
+
+.commentReaction:hover {
+  color: var(--green-500);
+}
+
