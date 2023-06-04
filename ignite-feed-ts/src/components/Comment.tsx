@@ -3,7 +3,11 @@ import { Avatar } from "./Avatar";
 
 import styles from './Comment.module.css'
 
-export function Comment() {
+interface Comment {
+  text:string
+}
+
+export function Comment( { text }: Comment) {
   return (
     <div className={styles.commentContainer}>
       <Avatar 
@@ -23,7 +27,7 @@ export function Comment() {
             </button>
           </header>
           <div className={styles.commentText}>
-            Muito bom este post!!
+            {text}
           </div>
         </div>
         <button className={styles.commentReaction}>

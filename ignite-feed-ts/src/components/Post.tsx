@@ -1,9 +1,48 @@
-import { FormEvent } from 'react'
 import { Avatar } from './Avatar'
 import styles from './Post.module.css'
 import { Comment } from './Comment'
+import { ChangeEvent, FormEvent, useState } from 'react'
 
-export function Post(){
+interface Post {
+  id? : number
+  user: User
+  content: PostContent[]
+}
+
+interface User {
+  avatarUrl: string
+  name: string
+  role: string
+}
+
+interface PostContent {
+  type: string
+  content: string
+}
+
+export function Post({ user, content}: Post){
+
+  const [commentList, setCommentList] = useState(
+    [
+      'Este é o primeiro comentário!!'
+    ]
+  )
+
+  const [newCommentText, setNewCommentText] = useState('')
+
+  function handleInputCommentText(event: ChangeEvent<HTMLTextAreaElement>) {
+    // console.log(event.target.value)
+    const inputText = event.target.value 
+    setNewCommentText(inputText)
+  }
+
+  function handleSubmitComment(event :FormEvent){
+    event.preventDefault()
+    const newCommentList = [newCommentText, ... commentList]
+
+    setCommentList(newCommentList)
+    setNewCommentText('')
+  }
 
   return (
     <>
@@ -11,7 +50,7 @@ export function Post(){
         <header>
           <div className={styles.profile}>
             <Avatar 
-              src='https://github.com/gustavopassinato.png'
+              src={user.avatarUrl}
               hasBorder
               alt=''
             />
@@ -23,20 +62,37 @@ export function Post(){
           <time className={styles.publishedAt}>Publicado à cerca de uma hora</time>
         </header>
         <div className={styles.content}>
-          <p>Fala Galera !!</p>
-          <p>Este é o conteudo do meu primeiro post</p>
-          <p><a href="https://github.com/gustavopassinato">GitHub</a></p>
+          {content.map(row =>{
+              if (row.type === 'paragraph'){
+                return <p key={row.content}>{row.content}</p>
+              }else if(row.type === 'link'){
+                return <p key={row.content}><a href="">{row.content}</a></p>
+              }
+          })}
         </div>
 
-        <form className={styles.feedback}>
+        <form onSubmit={handleSubmitComment} className={styles.feedback}>
           <strong className={styles.feedbackTitle}>Deixe seu feedback</strong>
-          <textarea className={styles.feedbackContent} placeholder='Nossa, adorei amigo!Parabé|'/>
+          <textarea 
+            value={newCommentText}
+            onChange={handleInputCommentText}
+            className={styles.feedbackContent} 
+            placeholder='Nossa, adorei amigo!Parabé|'
+          />
           <button type='submit' className={styles.feedbackSend}>Publicar</button>
         
-        </form>
+        </form >
         <div className={styles.commentList}>
-          <Comment />
-          <Comment />
+          {
+            commentList.map(comment => {
+              return (
+                <Comment 
+                  key={comment}
+                  text={comment}
+                />
+              )
+            })
+          }
         </div>
                   
       </section>
